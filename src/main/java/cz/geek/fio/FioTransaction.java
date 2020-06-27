@@ -1,7 +1,7 @@
 package cz.geek.fio;
 
 import lombok.Data;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

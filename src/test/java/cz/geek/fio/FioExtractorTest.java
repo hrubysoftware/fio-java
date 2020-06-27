@@ -1,6 +1,6 @@
 package cz.geek.fio;
 
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.AbstractClientHttpResponse;
 import org.testng.annotations.Test;
@@ -29,7 +29,7 @@ public class FioExtractorTest {
         assertThat(statement.getTransactions(), hasSize(2));
         final FioTransaction transaction = statement.getTransactions().iterator().next();
         assertThat(transaction.getTransactionId(), is("1147301403"));
-        assertThat(transaction.getDate(), is(new LocalDate(2012, 6, 30)));
+        assertThat(transaction.getDate(), is(LocalDate.of(2012, 6, 30)));
     }
 
     static class FakeClientHttpResponse extends AbstractClientHttpResponse {

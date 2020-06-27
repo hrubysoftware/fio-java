@@ -4,9 +4,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -32,7 +31,7 @@ public class FioClient {
     private static final String LAST_DATE = ROOT + "set-last-date/{token}/{date}/";
     private static final String LAST_ID = ROOT + "set-last-id/{token}/{id}/";
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final String token;
     private final String protocol;
@@ -105,7 +104,7 @@ public class FioClient {
         notNull(end);
         return restTemplate.execute(STATEMENT_PERIODS, GET, null,
                 statementExtractor(jaxb2Converter, conversionService),
-                protocol, hostport, token, DATE_FORMATTER.print(start), DATE_FORMATTER.print(end), ExportFormat.xml);
+                protocol, hostport, token, DATE_FORMATTER.format(start), DATE_FORMATTER.format(end), ExportFormat.xml);
     }
 
     /**
@@ -121,7 +120,7 @@ public class FioClient {
         notNull(end);
         notNull(format);
         restTemplate.execute(STATEMENT_PERIODS, GET, null, new OutputStreamResponseExtractor(target),
-                protocol, hostport, token, DATE_FORMATTER.print(start), DATE_FORMATTER.print(end), format);
+                protocol, hostport, token, DATE_FORMATTER.format(start), DATE_FORMATTER.format(end), format);
     }
 
     /**
@@ -203,7 +202,7 @@ public class FioClient {
     public void setLast(final LocalDate date) {
         notNull(date);
         restTemplate.execute(LAST_DATE, GET, null, null,
-                protocol, hostport, token, DATE_FORMATTER.print(date));
+                protocol, hostport, token, DATE_FORMATTER.format(date));
     }
 
 }

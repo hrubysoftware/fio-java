@@ -4,7 +4,7 @@ import cz.geek.fio.model.AccountStatement;
 import cz.geek.fio.model.Info;
 import cz.geek.fio.model.Transaction;
 import cz.geek.fio.model.TransactionList;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.GenericConversionService;
 
@@ -127,7 +127,7 @@ class FioConversionService {
     }
 
     private static LocalDate toLocalDate(final XMLGregorianCalendar date) {
-        return date != null ? new LocalDate(date.getYear(), date.getMonth(), date.getDay()) : null;
+        return date != null ? LocalDate.of(date.getYear(), date.getMonth(), date.getDay()) : null;
     }
 
 }
