@@ -24,7 +24,7 @@ class FioErrorHandler extends DefaultResponseErrorHandler {
         }
     }
 
-    private byte[] getResponseBody(final ClientHttpResponse response) {
+    protected byte[] getResponseBody(final ClientHttpResponse response) {
         try {
             final InputStream responseBody = response.getBody();
             if (responseBody != null) {
@@ -36,10 +36,10 @@ class FioErrorHandler extends DefaultResponseErrorHandler {
         return new byte[0];
     }
 
-    private Charset getCharset(final ClientHttpResponse response) {
+    protected Charset getCharset(final ClientHttpResponse response) {
         final HttpHeaders headers = response.getHeaders();
         final MediaType contentType = headers.getContentType();
-        return contentType != null ? contentType.getCharSet() : Charset.forName("ISO-8859-1");
+        return contentType != null ? contentType.getCharset() : Charset.forName("ISO-8859-1");
     }
 
 }
